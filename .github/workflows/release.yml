@@ -39,7 +39,7 @@ jobs:
           sudo cp semver-tool-3.2.0/src/semver /usr/local/bin
       - name: Bump version
         run: |
-          export CURRENT=$(perl -ne 'print "$1\n" if /"version":\s*"(.*?)"/' package.json)
+          export CURRENT=$(awk -F'"' '/"version": ".+"/{ print $4; exit; }' package.json)
           export NEW_VERSION=$(semver bump ${{ env.RELEASE }} $CURRENT)
           echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
       - name: Show version
