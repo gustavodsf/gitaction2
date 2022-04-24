@@ -1,4 +1,7 @@
 # Changelog
+### 0.1.0
+
+* [ADDED]  add a condition to skip the code
 ### 0.0.2
 
 * [FIX]  fix the problem of library versoin
