@@ -30,3 +30,17 @@ jobs:
           fi
       - name: Show release version
         run: echo ${{ env.RELEASE }}
+      - name: Install semver-tool
+        run: |
+          export DIR=$(mktemp -d)
+          cd $DIR
+          curl https://github.com/fsaintjacques/semver-tool/archive/3.2.0.tar.gz -L -o semver.tar.gz
+          tar -xvf semver.tar.gz
+          sudo cp semver-tool-3.2.0/src/semver /usr/local/bin
+      - name: Bump version
+        run: |
+          export CURRENT=$(perl -ne 'print "$1\n" if /"version":\s*"(.*?)"/' package.json)
+          export NEW_VERSION=$(semver bump ${{ env.RELEASE }} $CURRENT)
+          echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
+      - name: Show version
+        run: echo ${{ env.VERSION }}
