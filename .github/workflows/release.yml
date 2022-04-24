@@ -29,4 +29,4 @@ jobs:
             exit 0
           fi
       - name: Show release version
-        run: echo "${{ env.VERSION }}"
+        run: echo ${{ env.RELEASE }}
