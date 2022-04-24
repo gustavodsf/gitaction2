@@ -34,7 +34,7 @@ jobs:
           export TAG=$(head -1 CHANGELOG.tmp | cut -d' ' -f2)
           echo "TAG=$TAG" >> $GITHUB_ENV
       - name: Create Release
-        uses: actions/create-release@v2
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
