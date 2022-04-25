@@ -1,4 +1,7 @@
 # Changelog
+### 0.1.1
+
+* [CHANGED]  Just reorganize the code
 ### 0.1.0
 
 * [ADDED]  add a condition to skip the code
