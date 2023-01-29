@@ -1,5 +1,4 @@
-import { danger, fail, warn } from "danger"
+import {message, danger} from "danger"
 
-if (!danger.github.pr.assignee) {
-  fail("This pull request needs an assignee, and optionally include any reviewers.")
-}
+const newFiles = danger.git.created_files.join("- ")
+message("New Files in this PR: \n - " + newFiles);
