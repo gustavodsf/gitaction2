@@ -19,8 +19,8 @@ if (!isGPV && !isNoCARD){
 
 
 var bigPRThreshold = 2;
-const linesCount = await danger.git.linesOfCode("**/*");
-const excludeLinesCount = await danger.git.linesOfCode("**/*mock*");
+const linesCount = danger.git.linesOfCode("**/*");
+const excludeLinesCount = danger.git.linesOfCode("**/*mock*");
 const totalLinesCount = linesCount - excludeLinesCount;
 if (totalLinesCount > bigPRThreshold) {
   warn("Big PR, break down into smaller PRs.");
