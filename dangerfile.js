@@ -1,5 +1,5 @@
 import {message, danger, warn} from "danger"
-import { spellcheck } from 'danger-plugin-spellcheck'
+import * as spellcheck from 'danger-plugin-spellcheck'
 
 spellcheck()
 
