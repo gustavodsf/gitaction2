@@ -10,24 +10,12 @@ const isNoCARD = danger.github.pr.title.includes("[NO-CARD]")
 const isGPV = danger.github.pr.title.includes("[GPV-")
 
 if (!isGPV && !isNoCARD){
-  fail(':exclamation: No Jira Card -  We can\'t see the jira card number on your PR title (GPV-####).');
+  fail(':x: No Jira Card -  We can\'t see the jira card number on your PR title (GPV-####).');
 } else if(!isGPV && isNoCARD){
   warn(':exclamation: NO-CARD - this change does not have an associated card, correct?');
 }
 
-
-// Check the number of lines changed.
-const WARN_PR_THRESHOLD = 2;
-const FAIL_PR_THRESHOLD = 10;
-
-const linesCount = danger.git.linesOfCode("**/*");
-const excludeLinesCount = danger.git.linesOfCode("**/*test*");
-const totalLinesCount = linesCount - excludeLinesCount;
-
-if (totalLinesCount > WARN_PR_THRESHOLD  &&  totalLinesCount < FAIL_PR_THRESHOLD) {
-  warn("Big PR, break down into smaller PRs.");
-} else if (totalLinesCount > FAIL_PR_THRESHOLD) {
-  fail("Big PR, break down into smaller PRs.");
+// have to add assignee
+if (pr.assignee === null) {
+  fail(':x: Please assign someone to merge this PR, and optionally include people who should review.')
 }
-
-message(`Total the lines changed: ${totalLinesCount}`);
