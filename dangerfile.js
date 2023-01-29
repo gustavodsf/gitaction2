@@ -29,6 +29,16 @@ const hasJiraNumberOnTitle = () => {
   } 
 }
 
+const hasChangedInTheMessage = () => {
+  const text = danger.github.pr.body
+  const changed = text.split(/\r?\n/).filter(x => x.includes(['- [CHANGED]'])).map(x => x.replaceAll('- [CHANGED]', "").trim());
+
+  if(!changed.includes("")){
+    fail("This pull request needs a description.")
+  }
+}
+
 checkReview();
 addNewFile();
 hasJiraNumberOnTitle();
+hasChangedInTheMessage();
