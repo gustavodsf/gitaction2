@@ -1,13 +1,10 @@
 import {message, danger, warn} from "danger"
+import spellcheck from 'danger-plugin-spellcheck'
+
+spellcheck()
 
 const newFiles = danger.git.created_files.join("- ")
 message("New Files in this PR: \n - " + newFiles);
-
-var bigPRThreshold = 2;
-if (danger.github.pr.additions + danger.github.pr.deletions > bigPRThreshold) {
-  warn(':exclamation: Big PR (' + ++errorCount + ')');
-  markdown('> (' + errorCount + ') : Pull Request size seems relatively large. If Pull Request contains multiple changes, split each into separate PR will helps faster, easier review.');
-}
 
 
 const isNoCARD = danger.github.pr.title.includes("[NO-CARD]")
@@ -22,4 +19,11 @@ if (!isGPV && !isNoCARD){
 }
 
 
+var bigPRThreshold = 2;
+const linesCount = await danger.git.linesOfCode("**/*");
+const excludeLinesCount = await danger.git.linesOfCode("**/*mock*");
+const totalLinesCount = linesCount - excludeLinesCount;
+if (totalLinesCount > bigPRThreshold) {
+  warn("Big PR, break down into smaller PRs.");
+}
 
