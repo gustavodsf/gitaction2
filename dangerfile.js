@@ -1,4 +1,4 @@
-import {message, danger, warn} from "danger"
+import {message, danger, error, warn} from "danger"
 
 const newFiles = danger.git.created_files.join("- ")
 message("New Files in this PR: \n - " + newFiles);
@@ -8,7 +8,7 @@ const isNoCARD = danger.github.pr.title.includes("[NO-CARD]")
 const isGPV = danger.github.pr.title.includes("[GPV-")
 
 if (!isGPV && !isNoCARD){
-  danger(':exclamation: No Jira Card');
+  error(':exclamation: No Jira Card');
   markdown(">  We can't see the jira card number on your PR title **(GPV-####).**");
 } else if(!isGPV && isNoCARD){
   warn(':exclamation: NO-CARD');
