@@ -17,5 +17,9 @@ if (!isGPV && !isNoCARD){
 
 // have to add assignee
 if (danger.github.pr.assignee === null) {
-  fail(':x: Please assign someone to merge this PR, and optionally include people who should review.')
+  warn(':exclamation: Please assign the PR to someone')
+}
+
+if (danger.github.pr.reviewers === null) {
+  fail(':x: Please assign someone to merge this PR.')
 }
