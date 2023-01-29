@@ -12,8 +12,8 @@ if (danger.github.pr.additions + danger.github.pr.deletions > bigPRThreshold) {
 
 const isGPV = danger.github.pr.title.includes("[GPV-")
 if (!isGPV){
-  warn(':exclamation: No Jira Card (' + ++errorCount + ')');
-  markdown(">  We can't see the jira card number on your PR title.");
+  warn(':exclamation: No Jira Card');
+  markdown(">  We can't see the jira card number on your PR title (GPV-####).");
 }
 
 
