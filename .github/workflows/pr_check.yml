@@ -34,6 +34,6 @@ jobs:
     - run: npm run test
 
     - name: Danger
-      run: npx danger ci
+      run: npx danger ci --failOnErrors
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
