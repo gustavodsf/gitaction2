@@ -1,35 +1,19 @@
-import {danger, warn} from 'danger'
+// dangerfile.js
+import {danger, warn} from "danger"
 
-  
-// No PR is too small to include a description of why you made a change
-if (danger.github.pr.body.length < 10) {
-  warn('Please include a description of your PR changes.');
+
+const changes = danger.git.modified_files.reduce((prev, filePath) => {
+  if(!prev.package) {
+    prev.package = filePath.includes("package.json");
+  }
+  if(!prev.lock) {
+    prev.lock = filePath.includes("package-lock.json")
+  }
+  return prev;
+}, {});
+
+if (changes.package && !changes.lock) {
+  const message = 'Changes were made to package.json, but not to package-lock.json';
+  const idea = 'Perhaps you need to run `npm install`?';
+  warn(`${message} - <i>${idea}</i>`);
 }
-
-
-// Check for a CHANGELOG entry
-const hasChangelog = danger.git.modified_files.some(f => f === 'CHANGELOG.md')
-const description = danger.github.pr.body + danger.github.pr.title
-const isTrivial = description.includes('#trivial')
-
-if (!hasChangelog && !isTrivial) {
-  warn('Please add a changelog entry for your changes.')
-}
-
-
-// Check that someone has been assigned to this PR
-if (danger.github.pr.assignee === null) {
-   warn('Please assign someone to merge this PR, and optionally include people who should review.');
-}
-
-
-// Request changes to src also include changes to tests.
-const allFiles = danger.git.modified_files.concat(danger.git.created_files)
-const hasAppChanges = allFiles.some(p => p.includes('src/'))
-const hasTestChanges = allFiles.some(p => p.includes('__tests__/'))
-
-if (hasAppChanges && !hasTestChanges) {
-  warn('This PR does not include changes to tests, even though it affects app code.');
-}
-
-  
