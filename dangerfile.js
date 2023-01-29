@@ -1,7 +1,5 @@
 import {message, danger, warn} from "danger"
 
-spellcheck()
-
 const newFiles = danger.git.created_files.join("- ")
 message("New Files in this PR: \n - " + newFiles);
 
