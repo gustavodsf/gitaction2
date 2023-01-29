@@ -1,5 +1,4 @@
 import {message, danger, warn} from "danger"
-import * as spellcheck from 'danger-plugin-spellcheck'
 
 spellcheck()
 
