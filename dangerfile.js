@@ -1,6 +1,7 @@
 import {message, danger, fail, warn} from "danger"
 
 // Check if some file is added.
+
 const newFiles = danger.git.created_files.join("- ")
 message("New Files in this PR: \n - " + newFiles);
 
@@ -20,6 +21,8 @@ if (danger.github.pr.assignee === null) {
   warn(':exclamation: Please assign the PR to someone')
 }
 
+
+message(`Review: ${danger.github.pr.reviewers}`)
 if (danger.github.pr.reviewers === null) {
   fail(':x: Please assign someone to merge this PR.')
 }
