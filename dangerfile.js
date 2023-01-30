@@ -31,10 +31,10 @@ const hasJiraNumberOnTitle = () => {
 
 const hasChangedInTheMessage = () => {
   const text = danger.github.pr.body
-  const changed = text.split(/\r?\n/).filter(x => x.includes(['- [CHANGED]'])).map(x => x.replaceAll('- [CHANGED]', "").trim());
 
-  if(!changed.includes("")){
-    fail("This pull request needs a description.")
+  const changed = text.split(/\r?\n/).filter(x => x.includes(['- [CHANGED]'])).map(x => x.replaceAll('- [CHANGED]', "").trim());
+  if(changed.includes('')){
+    fail(":x: inform your [CHANGED] inside the CHANGELOG section.")
   }
 }
 
@@ -46,7 +46,7 @@ const checkPRChanges = () => {
   const lineRemoved = danger.github.pr.deletions;
   const totalChanges = lineAdded + lineRemoved;
 
-  const method = undefined
+  let method = undefined
 
   if ( totalChanges  > MEDIUM_PR_THRESHOLD && totalChanges < BIG_PR_THRESHOLD) {
     method = warn;
@@ -65,7 +65,7 @@ const checkPkgLockUpdate = () => {
   const packageChanged = danger.git.modified_files.includes('package.json');
   const lockfileChanged = danger.git.modified_files.includes('package-lock.json');
   if (packageChanged && !lockfileChanged) {
-      warn(`Changes were made to package.json, but not to package-lock.json - <i>'Perhaps you need to run `npm install`?'</i>`);
+      warn("Changes were made to package.json, but not to package-lock.json - <i>'Perhaps you need to run `npm install`?'</i>");
   }
 }
 
