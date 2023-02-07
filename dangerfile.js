@@ -66,6 +66,7 @@ const isPkgLockUpdate = () => {
 }
 
 const existMoreTests = () => {
+  const modifiedAppFiles = danger.git.modified_files;
   const hasAppChanges = modifiedAppFiles.length > 0;
 
   const testChanges = modifiedAppFiles.filter(filepath =>
@@ -99,5 +100,4 @@ addNewFile();
 isJiraNumberOnTitle();
 existChangedInTheMessage();
 existMoreTests();
-checkTestCreation();
 existJiraCardCommitMessage();
