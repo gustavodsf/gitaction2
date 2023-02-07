@@ -53,7 +53,7 @@ const checkPRChanges = () => {
     markdown('> (' + totalChanges + ') : Pull Request size seems relatively large. If Pull Request contains multiple changes, think in split each into separate PR will helps faster, easier review.');
   }
 
-  warn(message)
+  warn(msg)
 
 }
 
