@@ -44,12 +44,12 @@ const checkPRChanges = () => {
   const lineRemoved = danger.github.pr.deletions;
   const totalChanges = lineAdded + lineRemoved;
 
-  let message = ''
+  let msg = ''
 
   if ( totalChanges  > MEDIUM_PR_THRESHOLD && totalChanges < BIG_PR_THRESHOLD) {
-    message = ':exclamation: Big PR (Changes: ' + totalChanges + ')'
+    msg = ':exclamation: Big PR (Changes: ' + totalChanges + ')';
   } else if (totalChanges > BIG_PR_THRESHOLD) {
-    message = ':x: Giant PR (Ghanges' + totalChanges + ')'
+    msg = ':x: Giant PR (Ghanges' + totalChanges + ')';
     markdown('> (' + totalChanges + ') : Pull Request size seems relatively large. If Pull Request contains multiple changes, think in split each into separate PR will helps faster, easier review.');
   }
 
